@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Twin Ga Hà Nội — Hệ Thống Giám Sát Tích Hợp 3D & Analytics</title>
+    <!-- Google Fonts & Chart.js -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-card: rgba(18, 24, 38, 0.9);
+            --bg-card-border: rgba(255, 255, 255, 0.1);
+            --accent-cyan: #00f2fe;
+            --accent-blue: #4facfe;
+            --accent-purple: #7f00ff;
+            --accent-green: #00e676;
+            --accent-yellow: #ffea00;
+            --accent-red: #ff1744;
+            --text-main: #f0f4f8;
+            --text-muted: #8a99ad;
+            --shadow-glow: 0 8px 32px 0 rgba(0, 242, 254, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 16px;
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(0, 242, 254, 0.04) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(127, 0, 255, 0.04) 0%, transparent 40%);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--bg-card-border);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo-img {
+            height: 44px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 8px rgba(245, 158, 11, 0.3));
+        }
+
+        .brand-title h1 {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ffffff, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-title p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .view-toggle {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 8px;
+            padding: 3px;
+        }
+
+        .view-btn {
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .view-btn.active {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            color: #0b0f19;
+        }
+
+        .live-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 230, 118, 0.1);
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-green);
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        /* KPI Cards Top Row */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .kpi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 14px;
+            backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), transparent);
+        }
+
+        .kpi-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .kpi-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .kpi-sub {
+            font-size: 11px;
+            color: var(--accent-green);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        /* Dual Split Screen Container */
+        .main-workspace {
+            display: grid;
+            grid-template-columns: 55% 45%;
+            gap: 16px;
+            height: calc(100vh - 170px);
+            min-height: 600px;
+        }
+
+        .main-workspace.full-3d {
+            grid-template-columns: 1fr 0px;
+        }
+
+        .main-workspace.full-3d .analytics-side {
+            display: none;
+        }
+
+        .main-workspace.full-dashboard {
+            grid-template-columns: 0px 1fr;
+        }
+
+        .main-workspace.full-dashboard .unity-side {
+            display: none;
+        }
+
+        /* Left Side: Unity 3D Screen */
+        .unity-side {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .panel-header {
+            padding: 10px 16px;
+            background: rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .cam-selector-group {
+            display: flex;
+            gap: 6px;
+        }
+
+        .cam-btn {
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 6px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .cam-btn.active {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            color: #0b0f19;
+            border-color: transparent;
+        }
+
+
+        .unity-iframe-wrapper {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            position: relative;
+        }
+
+        .unity-iframe-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Right Side: Analytics Dashboard */
+        .analytics-side {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .chart-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 14px;
+            padding: 16px;
+            backdrop-filter: blur(12px);
+        }
+
+        .chart-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 200px;
+            width: 100%;
+        }
+
+        .control-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 14px;
+            padding: 16px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .btn-action-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-predict {
+            flex: 2;
+            padding: 10px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            border: none;
+            border-radius: 8px;
+            color: #0b0f19;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-predict:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-stress {
+            flex: 1;
+            padding: 10px;
+            background: rgba(255, 23, 68, 0.15);
+            border: 1px solid rgba(255, 23, 68, 0.4);
+            border-radius: 8px;
+            color: var(--accent-red);
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-stress:hover {
+            background: rgba(255, 23, 68, 0.3);
+        }
+
+        .energy-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .energy-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .progress-bar-bg {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .progress-fill-ai {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+            transition: width 0.5s ease;
+        }
+
+        /* Scrollbar custom */
+        .analytics-side::-webkit-scrollbar {
+            width: 6px;
+        }
+        .analytics-side::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">
+            <img src="/logo.png" alt="UTT Logo" class="brand-logo-img">
+            <div class="brand-title">
+                <h1>Digital Twin Ga Hà Nội</h1>
+                <p>Hệ Thống Giám Sát Tích Hợp Mô Hình 3D & Biểu Đồ Analytics Real-Time</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <div class="view-toggle">
+                <button class="view-btn active" onclick="switchView('split')">Split-Screen 3D & Data</button>
+                <button class="view-btn" onclick="switchView('full3d')">Full 3D Scene</button>
+                <button class="view-btn" onclick="switchView('fullDashboard')">Full Dashboard</button>
+            </div>
+            <div class="live-badge">
+                <div class="pulse-dot"></div>
+                SYSTEM ONLINE
+            </div>
+        </div>
+    </header>
+
+    <!-- Top KPI Row -->
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-label">DỰ BÁO HVAC (AI)</div>
+            <div class="kpi-value" id="kpi-hvac">0.0%</div>
+            <div class="kpi-sub" id="kpi-hvac-status">Trạng thái: Tối ưu</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">THÔNG GIÓ</div>
+            <div class="kpi-value" id="kpi-vent">0.0%</div>
+            <div class="kpi-sub" id="kpi-vent-status">Chế độ: STANDARD</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">CHIẾU SÁNG</div>
+            <div class="kpi-value" id="kpi-light">0.0%</div>
+            <div class="kpi-sub" id="kpi-light-status">Tiết kiệm: 20%</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-label">TIẾT KIỆM NĂNG LƯỢNG</div>
+            <div class="kpi-value" id="kpi-savings" style="color: var(--accent-green);">0.0%</div>
+            <div class="kpi-sub" id="kpi-kwh">AI: 0.00 kWh</div>
+        </div>
+    </div>
+
+    <!-- Dual Workspace -->
+    <div class="main-workspace" id="workspace">
+        
+        <!-- Left: Unity 3D Real-Time Canvas -->
+        <div class="unity-side">
+            <div class="panel-header">
+                <span>MÔ HÌNH 3D DIGITAL TWIN (UNITY WEBGL)</span>
+                <div class="cam-selector-group">
+                    <button class="cam-btn active" id="btnCam1" onclick="selectUnityCam(1)">Camera 1 (3D Ngang)</button>
+                    <button class="cam-btn" id="btnCam2" onclick="selectUnityCam(2)">Camera 2 (Heatmap Radar)</button>
+                </div>
+            </div>
+            <div class="unity-iframe-wrapper">
+                <iframe src="/unity_build/index.html" id="unityIframe" allow="fullscreen; autoplay"></iframe>
+            </div>
+        </div>
+
+        <!-- Right: Analytics Charts & Controls -->
+        <div class="analytics-side">
+            
+            <!-- IoT Controls -->
+            <div class="control-panel">
+                <div class="chart-title">Thử Nghiệm Kịch Bản IoT (Thay Đổi Trực Tiếp Mô Hình 3D)</div>
+                <form id="simForm" onsubmit="handleManualSim(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Nhiệt độ (°C)</label>
+                            <input type="number" step="0.1" id="in_temp" value="34.5">
+                        </div>
+                        <div class="form-group">
+                            <label>Độ ẩm (%)</label>
+                            <input type="number" step="0.1" id="in_humidity" value="78.0">
+                        </div>
+                        <div class="form-group">
+                            <label>Hành khách (người)</label>
+                            <input type="number" id="in_pax" value="1450">
+                        </div>
+                    </div>
+                    <div class="btn-action-group">
+                        <button type="submit" class="btn-predict">Chạy Dự Báo & Đồng Bộ 3D</button>
+                        <button type="button" class="btn-stress" onclick="triggerStressSim()">Quá Tải</button>
+                    </div>
+                </form>
+
+                <!-- Energy Counter -->
+                <div class="energy-box">
+                    <div class="energy-row">
+                        <span>Hiệu quả tiết kiệm năng lượng (AI vs 85% Fix):</span>
+                        <strong id="box-saving-pct" style="color: var(--accent-green);">0% Savings</strong>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-fill-ai" id="energy-progress" style="width: 60%;"></div>
+                    </div>
+                    <div class="energy-row" style="margin-top: 6px; font-size: 11px; color: var(--text-muted);">
+                        <span id="box-ai-kwh">AI: 0 kWh</span>
+                        <span id="box-trad-kwh">Truyền thống: 0 kWh</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Forecast Window Chart -->
+            <div class="chart-card">
+                <div class="chart-title">Dự Báo 30-60 Phút Tới (Lookahead Forecast Window)</div>
+                <div class="chart-container">
+                    <canvas id="forecastChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Operational History Chart -->
+            <div class="chart-card">
+                <div class="chart-title">Lịch Sử Vận Hành & Tải AI vs Truyền Thống</div>
+                <div class="chart-container">
+                    <canvas id="historyChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        let forecastChart, historyChart;
+
+        function switchView(mode) {
+            const ws = document.getElementById('workspace');
+            const btns = document.querySelectorAll('.view-btn');
+            btns.forEach(b => b.classList.remove('active'));
+
+            if (mode === 'split') {
+                ws.className = 'main-workspace';
+                btns[0].classList.add('active');
+            } else if (mode === 'full3d') {
+                ws.className = 'main-workspace full-3d';
+                btns[1].classList.add('active');
+            } else if (mode === 'fullDashboard') {
+                ws.className = 'main-workspace full-dashboard';
+                btns[2].classList.add('active');
+            }
+        }
+
+        function selectUnityCam(camIndex) {
+            document.getElementById('btnCam1').classList.toggle('active', camIndex === 1);
+            document.getElementById('btnCam2').classList.toggle('active', camIndex === 2);
+            const iframe = document.getElementById('unityIframe');
+            if (iframe && iframe.contentWindow) {
+                iframe.contentWindow.postMessage({ type: 'SWITCH_CAMERA', camIndex: camIndex }, '*');
+            }
+        }
+
+        function initCharts() {
+
+            const ctxF = document.getElementById('forecastChart').getContext('2d');
+            forecastChart = new Chart(ctxF, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [
+                        { label: 'HVAC Power (%)', borderColor: '#00f2fe', backgroundColor: 'rgba(0, 242, 254, 0.1)', fill: true, tension: 0.4, data: [] },
+                        { label: 'Thông Gió (%)', borderColor: '#7f00ff', borderDash: [4, 4], tension: 0.4, data: [] },
+                        { label: 'Chiếu Sáng (%)', borderColor: '#ffea00', borderDash: [2, 2], tension: 0.4, data: [] }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { min: 0, max: 100, grid: { color: 'rgba(255,255,255,0.05)' } },
+                        x: { grid: { color: 'rgba(255,255,255,0.05)' } }
+                    },
+                    plugins: { legend: { labels: { color: '#f0f4f8', font: { size: 10 } } } }
+                }
+            });
+
+            const ctxH = document.getElementById('historyChart').getContext('2d');
+            historyChart = new Chart(ctxH, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [
+                        { label: 'AI HVAC (%)', borderColor: '#00e676', backgroundColor: 'rgba(0, 230, 118, 0.1)', fill: true, tension: 0.3, data: [] },
+                        { label: 'Cố Định 85%', borderColor: '#ff1744', borderDash: [4, 4], data: [] }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { min: 0, max: 100, grid: { color: 'rgba(255,255,255,0.05)' } },
+                        x: { grid: { color: 'rgba(255,255,255,0.05)' } }
+                    },
+                    plugins: { legend: { labels: { color: '#f0f4f8', font: { size: 10 } } } }
+                }
+            });
+        }
+
+        async function fetchDashboardData() {
+            try {
+                // 1. Fetch History point mới nhất để đồng bộ Top KPI Cards với Unity 3D
+                const histRes = await fetch('/energy/history?limit=30');
+                const hist = await histRes.json();
+                if (hist.status === 'success' && hist.points.length > 0) {
+                    historyChart.data.labels = hist.points.map(p => p.t);
+                    historyChart.data.datasets[0].data = hist.points.map(p => p.hvac);
+                    historyChart.data.datasets[1].data = hist.points.map(p => p.traditional);
+                    historyChart.update();
+
+                    // Đồng bộ 100% Top KPI cards với điểm thực tế mới nhất
+                    const lastPt = hist.points[hist.points.length - 1];
+                    document.getElementById('kpi-hvac').innerText = lastPt.hvac + '%';
+                    document.getElementById('kpi-vent').innerText = lastPt.vent + '%';
+                    document.getElementById('kpi-light').innerText = lastPt.light + '%';
+
+                    const isHigh = lastPt.hvac > 80.0;
+                    document.getElementById('kpi-hvac-status').innerText = isHigh ? 'CẢNH BÁO TẢI CAO' : 'Trạng thái: Tối ưu';
+                    document.getElementById('kpi-hvac-status').style.color = isHigh ? '#ff1744' : '#00e676';
+                }
+
+                // 2. Fetch Forecast
+                const temp = parseFloat(document.getElementById('in_temp').value);
+                const humidity = parseFloat(document.getElementById('in_humidity').value);
+                const pax = parseInt(document.getElementById('in_pax').value);
+
+                const fcRes = await fetch('/predict/forecast?minutes=60', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ temp, humidity, passenger_count: pax })
+                });
+                const fcData = await fcRes.json();
+                if (fcData.status === 'success') {
+                    forecastChart.data.labels = fcData.data_points.map(p => p.target_time);
+                    forecastChart.data.datasets[0].data = fcData.data_points.map(p => p.predicted_hvac_power);
+                    forecastChart.data.datasets[1].data = fcData.data_points.map(p => p.predicted_ventilation_power);
+                    forecastChart.data.datasets[2].data = fcData.data_points.map(p => p.predicted_lighting_power);
+                    forecastChart.update();
+                }
+
+                // 3. Fetch Energy Stats
+                const statsRes = await fetch('/energy/stats');
+                const stats = await statsRes.json();
+                if (stats.status === 'success') {
+                    document.getElementById('kpi-savings').innerText = stats.savings_percent + '%';
+                    document.getElementById('kpi-kwh').innerText = `AI: ${stats.ai_total_kwh} kWh | Trad: ${stats.traditional_total_kwh} kWh`;
+                    document.getElementById('box-saving-pct').innerText = `${stats.savings_percent}% Savings`;
+                    document.getElementById('box-ai-kwh').innerText = `AI: ${stats.ai_total_kwh} kWh`;
+                    document.getElementById('box-trad-kwh').innerText = `Truyền thống: ${stats.traditional_total_kwh} kWh`;
+
+                    const pct = Math.min(100, Math.max(10, 100 - stats.savings_percent));
+                    document.getElementById('energy-progress').style.width = pct + '%';
+                }
+
+            } catch (err) {
+                console.error('Lỗi cập nhật dashboard:', err);
+            }
+        }
+
+        async function handleManualSim(e) {
+            e.preventDefault();
+            const temp = parseFloat(document.getElementById('in_temp').value);
+            const humidity = parseFloat(document.getElementById('in_humidity').value);
+            const pax = parseInt(document.getElementById('in_pax').value);
+
+            const res = await fetch('/predict', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ temp, humidity, passenger_count: pax })
+            });
+            const data = await res.json();
+            if (data.status === 'success') {
+                fetchDashboardData();
+            }
+        }
+
+        function triggerStressSim() {
+            document.getElementById('in_temp').value = 40.5;
+            document.getElementById('in_humidity').value = 88.0;
+            document.getElementById('in_pax').value = 2400;
+            handleManualSim(new Event('submit'));
+        }
+
+        window.onload = () => {
+            initCharts();
+            fetchDashboardData();
+            setInterval(fetchDashboardData, 3000);
+        };
+    </script>
+</body>
+</html>

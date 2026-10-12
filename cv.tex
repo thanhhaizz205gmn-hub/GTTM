@@ -1,0 +1,160 @@
+%-------------------------
+% Professional Technical Resume in LaTeX
+% Candidate: Do Thanh Hai (AI / Backend / Computer Vision / IoT Engineer)
+% Compatible with: Overleaf, pdflatex, xelatex (ATS-Friendly 1-Page Format)
+%------------------------
+
+\documentclass[letterpaper,10pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins to fit 1 page comfortably
+\addtolength{\oddsidemargin}{-0.55in}
+\addtolength{\evensidemargin}{-0.55in}
+\addtolength{\textwidth}{1.1in}
+\addtolength{\topmargin}{-.6in}
+\addtolength{\textheight}{1.2in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Section formatting with horizontal rule
+\titleformat{\section}{
+  \vspace{-5pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-4pt}]
+
+% Ensure machine-readable PDF for ATS
+\pdfgentounicode=1
+
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      #1 & #2 \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.15in]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%
+%-------------------------------------------
+
+\begin{document}
+
+%---------- HEADING ----------
+\begin{center}
+    \textbf{\Huge \scshape DO THANH HAI} \\ \vspace{4pt}
+    \small 
+    \href{https://github.com/thanhhaizz205gmn-hub}{github.com/thanhhaizz205gmn-hub} $|$ 
+    \href{https://linkedin.com/in/thanh-hai-do}{linkedin.com/in/thanh-hai-do} $|$ 
+    \href{mailto:thanhhaizz205gmn@gmail.com}{thanhhaizz205gmn@gmail.com} \\ \vspace{2pt}
+    \small Hanoi, Vietnam \quad $(+84)$ 9xx xxx xxx
+\end{center}
+
+%----------- SUMMARY -----------
+\section{Summary}
+\small{
+Software Engineer \& AI Systems Developer with hands-on experience designing end-to-end intelligent IoT platforms, real-time machine learning inference engines, and computer vision surveillance solutions. Independently built and deployed two production-grade architectures: a 4-tier 3D Digital Twin station energy optimizer (FastAPI, LightGBM, Unity WebGL, Cloudflare Tunnel) and a real-time smart safety monitoring system with YOLOv8. Strong foundations in time-series predictive modeling, 3D perspective geometry, and microservice containerization.
+}
+
+%----------- SKILLS -----------
+\section{Skills}
+\begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: Python, C\#, JavaScript, SQL, HTML5/CSS3} \\
+     \textbf{AI, ML \& Computer Vision}{: LightGBM, scikit-learn, Ultralytics YOLOv8, OpenCV, Pose Classification, Time-Series} \\
+     \textbf{Backend \& APIs}{: FastAPI (Async), Uvicorn, RESTful API Design, WebSockets, Pydantic, Swagger/OpenAPI} \\
+     \textbf{Simulation \& Frontend}{: Unity 6 (WebGL, C\#), Chart.js, Glassmorphism UI, Progressive Web Apps (PWA)} \\
+     \textbf{Cloud, IoT \& Automation}{: Supabase (PostgreSQL), SQLite, n8n Workflow Automation, IoT Sensor Simulation} \\
+     \textbf{DevOps \& Infrastructure}{: Docker, Docker Compose, Nginx (Reverse Proxy \& Gzip), Cloudflare Zero-Trust Tunnel, Git} \\
+     \textbf{Concepts \& Practices}{: Digital Twin Architecture, Perspective ROI Geometry, Concurrency Stress Testing, Clean Code}
+    }}
+\end{itemize}
+
+%----------- EDUCATION -----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {University of Transport Technology (UTT)}{2022 -- 2026 (Expected)}
+      {Bachelor of Engineering in Information Technology / Intelligent Systems}{}
+  \resumeSubHeadingListEnd
+
+%----------- PROJECTS -----------
+\section{Projects}
+  \resumeSubHeadingListStart
+
+    % Project 1: Digital Twin GTTM
+    \resumeProjectHeading
+      {\textbf{Hanoi High-Speed Railway Station --- 3D Digital Twin \& AI Energy Optimization}}{06/2026 -- Present}
+    \resumeSubHeadingListStart
+      \item[] \textit{\small Lead Architect \& Full-Stack AI Engineer} \\
+      \textit{\small Stack: Python (FastAPI), LightGBM, Unity 6 (C\# WebGL), Docker Compose, Nginx, Cloudflare, Supabase, n8n} \\
+      \textit{\small GitHub: \href{https://github.com/thanhhaizz205gmn-hub/GTTM}{https://github.com/thanhhaizz205gmn-hub/GTTM}} \\
+      \textit{\small Live Demo: \href{https://gamification.ink}{https://gamification.ink}} $|$ \textit{\small Dashboard: \href{https://gamification.ink/dashboard}{https://gamification.ink/dashboard}}
+    \resumeSubHeadingListEnd
+    \resumeItemListStart
+      \resumeItem{Architected an end-to-end \textbf{4-tier Digital Twin ecosystem} (IoT Sensing $\rightarrow$ AI Inference Engine $\rightarrow$ Real-Time Cloud Sync $\rightarrow$ 3D Interactive WebGL), simulating station climate, passenger density, and dynamic energy load.}
+      \resumeItem{Engineered a \textbf{2,000,000-row time-series dataset}; trained a \textbf{LightGBM predictive model} optimizing HVAC, ventilation, and biological lighting power, achieving \textbf{20\%--30\% energy savings} compared to fixed 85\% baseline operations.}
+      \resumeItem{Implemented an asynchronous \textbf{FastAPI backend (v2.0)} delivering multi-step 30--60 minute rolling forecasts (5-minute step) with \textbf{Gaussian passenger surge detection} and automated risk level categorization (\texttt{NORMAL}, \texttt{WARNING}, \texttt{CRITICAL}).}
+      \resumeItem{Built an automated IoT data pipeline: integrated an \textbf{n8n weather workflow} pulling real-time weather every 15 minutes, synchronized with \textbf{Supabase} alongside a 12-scenario IoT mock engine streaming telemetries every 3 seconds.}
+      \resumeItem{Containerized the entire infrastructure into \textbf{4 Docker services} (FastAPI app, mock IoT sensor, Nginx reverse proxy with Gzip WebGL compression, and automated \textbf{Cloudflare Tunnel}), successfully deployed with 100\% uptime at \texttt{gamification.ink}.}
+    \resumeItemListEnd
+
+    % Project 2: UTT_APP - Real-Time AI Safety & PPE Violation Detection System
+    \resumeProjectHeading
+      {\textbf{Smart Industrial Safety Monitoring \& PPE Violation Detection System (UTT APP)}}{03/2026 -- 06/2026}
+    \resumeSubHeadingListStart
+      \item[] \textit{\small Computer Vision \& AI Backend Engineer} \\
+      \textit{\small Stack: Python, Ultralytics YOLOv8, OpenCV, Pygame Audio, SQLite, Docker, PWA Dashboard} \\
+      \textit{\small GitHub: \href{https://github.com/thanhhaizz205gmn-hub/UTT_APP}{https://github.com/thanhhaizz205gmn-hub/UTT_APP}}
+    \resumeSubHeadingListEnd
+    \resumeItemListStart
+      \resumeItem{Developed a real-time computer vision surveillance system utilizing custom-trained \textbf{YOLOv8 models} for PPE verification (hard hats, safety vests), hazard signpost tracking (\texttt{cone\_sign.pt}), and fall/collapse posture detection (\texttt{tuthenga.pt}).}
+      \resumeItem{Engineered a \textbf{3D perspective ground-mapping algorithm} (Perspective Ratio 0.4, configurable pixel-per-meter ratio) projecting realistic elliptical restricted danger zones (ROI) around construction equipment and obstacles.}
+      \resumeItem{Built an adaptive violation verification engine with cooldown logic (180s grace window for verified workers, 5s unauthorized intrusion trigger) to drastically mitigate false alarms from occlusions.}
+      \resumeItem{Integrated an asynchronous audio alarm dispatcher using Pygame threaded sound mixers, alongside a persistent SQLite/CSV audit trail logging timestamped incident telemetry.}
+      \resumeItem{Delivered a responsive \textbf{Progressive Web App (PWA) Dashboard} displaying live safety status, video analysis stream, and compliance analytics; fully containerized with \textbf{Docker Compose}.}
+    \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+\end{document}

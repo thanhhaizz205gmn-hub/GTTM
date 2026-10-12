@@ -1,0 +1,167 @@
+%-------------------------
+% Resume in Latex Template (ATS-Friendly / Jake's Resume style)
+% Author: Nguyen Hieu Nghia (Adapted Template)
+% Compatible with: Overleaf, pdflatex, xelatex
+%------------------------
+
+\documentclass[letterpaper,10pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+%---------- FONT OPTIONS ----------
+% Sans-serif default or Computer Modern
+% \usepackage[sfdefault]{roboto}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins to fit 1 page comfortably
+\addtolength{\oddsidemargin}{-0.55in}
+\addtolength{\evensidemargin}{-0.55in}
+\addtolength{\textwidth}{1.1in}
+\addtolength{\topmargin}{-.6in}
+\addtolength{\textheight}{1.2in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting with horizontal rule
+\titleformat{\section}{
+  \vspace{-5pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-4pt}]
+
+% Ensure that generated PDF is machine readable / ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      #1 & #2 \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.15in]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%
+%-------------------------------------------
+
+\begin{document}
+
+%---------- HEADING ----------
+\begin{center}
+    \textbf{\Huge \scshape NGUYEN HIEU NGHIA} \\ \vspace{4pt}
+    \small 
+    \href{https://github.com/MynameNghia123}{github.com/MynameNghia123} $|$ 
+    \href{https://linkedin.com/in/nghia-nguyen-hieu}{linkedin.com/in/nghia-nguyen-hieu} $|$ 
+    \href{mailto:nghialam1509@gmail.com}{nghialam1509@gmail.com} \\ \vspace{2pt}
+    \small Ho Chi Minh City, Vietnam \quad $(+84)$ 70 354 7179
+\end{center}
+
+%----------- SUMMARY -----------
+\section{Summary}
+\small{
+Software Engineering student with hands-on full-stack experience, focused on Laravel backend development. Independently designed and shipped two production-style applications --- an e-commerce platform and a hotel management system --- covering RESTful API design, layered architecture (Repository \& Service pattern), transactional data integrity, and role-based access control. Comfortable working solo end-to-end but eager to adapt to Agile/Scrum workflows, code review culture, and Git collaboration in a real engineering team.
+}
+
+%----------- SKILLS -----------
+\section{Skills}
+\begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: PHP, JavaScript, HTML, CSS} \\
+     \textbf{Frameworks \& Libraries}{: Laravel (Blade), Vue 3, Pinia, Tailwind CSS} \\
+     \textbf{Databases}{: MySQL, PostgreSQL} \\
+     \textbf{Architecture \& Concepts}{: RESTful API, OOP, SOLID, Repository \& Service Pattern} \\
+     \textbf{Tools \& Environment}{: Git, Docker, GitHub Actions (CI/CD), PHPUnit, Laragon} \\
+     \textbf{Soft Skills}{: Technical English (Proficient in reading documentation, code commenting)}
+    }}
+\end{itemize}
+
+%----------- EDUCATION -----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Sai Gon University}{2023 -- 2027 (Expected)}
+      {GPA: 3.21/4.0 --- Undergraduate Student in Software Engineering}{}
+  \resumeSubHeadingListEnd
+
+%----------- PROJECTS -----------
+\section{Projects}
+  \resumeSubHeadingListStart
+
+    % Project 1
+    \resumeProjectHeading
+      {\textbf{ECOMFASHION - Fashion E-commerce Platform}}{01/2026 -- Present}
+    \resumeSubHeadingListStart
+      \item[] \textit{\small Full-stack Developer} \\
+      \textit{\small Stack: Vue.js 3, Tailwind CSS, Laravel 11, MySQL, Docker} \\
+      \textit{\small GitHub: \href{https://github.com/MynameNghia123/Ecom-Fashion}{https://github.com/MynameNghia123/Ecom-Fashion}} \\
+      \textit{\small Live Demo: \href{https://ecom-fashion.onrender.com}{https://ecom-fashion.onrender.com}}
+    \resumeSubHeadingListEnd
+    \resumeItemListStart
+      \resumeItem{Designed $\sim$\textbf{122 RESTful API endpoints} with a layered architecture (Repository \& Service pattern).}
+      \resumeItem{Applied \textbf{eager loading} at the Repository layer to prevent N+1 queries, and used database transactions with \textbf{pessimistic locking (\texttt{lockForUpdate})} to prevent overselling during checkout.}
+      \resumeItem{Built a custom \textbf{RBAC engine} spanning 14 modules with per-staff \textbf{direct permission overrides}, enabling fine-grained access control beyond simple role checks.}
+      \resumeItem{Integrated \textbf{two payment gateways} (VNPay, SePay) with IPN/webhook verification, alongside COD, and implemented a \textbf{5-state return-request workflow} (pending $\rightarrow$ approved $\rightarrow$ received $\rightarrow$ refunded) with auto payment-status updates.}
+      \resumeItem{Secured a shared \textbf{Laravel Sanctum} layer for both the Admin and Customer SPAs, and containerized the stack with \textbf{Docker Compose} (5 services, incl. a local Mailpit SMTP catcher).}
+    \resumeItemListEnd
+
+    % Project 2
+    \resumeProjectHeading
+      {\textbf{Hotel Management Web Application}}{03/2026 -- 05/2026}
+    \resumeSubHeadingListStart
+      \item[] \textit{\small Backend Developer} \\
+      \textit{\small Stack: Laravel (Blade), TailwindCSS v4, Vite, MySQL, Gemini API} \\
+      \textit{\small GitHub: \href{https://github.com/MynameNghia123/Hotel-Management}{https://github.com/MynameNghia123/Hotel-Management}} \\
+      \textit{\small Live Demo: \href{https://hotel-management-arp7.onrender.com}{https://hotel-management-arp7.onrender.com}}
+    \resumeSubHeadingListEnd
+    \resumeItemListStart
+      \resumeItem{Implemented a strict \textbf{Repository \& Service architecture} with a session-based booking cart, and benchmarked eager loading against N+1 queries: cut Booking List from \textbf{22$\rightarrow$6 queries ($-73\%$)} and Room Search from \textbf{9$\rightarrow$3 ($-67\%$)}, with query count staying constant as data volume scales.}
+      \resumeItem{Built a hotel management schema with \textbf{no hard-coded limits} on floors, room types, or rooms (demoed with 5 floors, 4 room types, 13 rooms --- all fully configurable via the admin UI), delivered as a server-side rendered (\textbf{SSR}) app with $\sim$\textbf{76 RESTful endpoints} on a Laravel Blade + TailwindCSS v4 stack, optimized via Vite.}
+      \resumeItem{Built an \textbf{extensible RBAC system} allowing new roles to be created via the admin UI, with granular per-module permissions (demoed with 4 roles: Admin, Receptionist, Technician, Accountant), and integrated an \textbf{AI-powered chat assistant (Gemini API)} with prompt caching and throttle middleware (OTP: 3 req/min, chat: 30 req/min).}
+      \resumeItem{Covered core booking/payment flows with automated tests (\textbf{PHPUnit}), set up a basic \textbf{CI/CD pipeline}, and deployed a live demo on \textbf{Render}.}
+    \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+\end{document}

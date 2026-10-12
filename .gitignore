@@ -1,0 +1,68 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.env
+
+# Projects separation
+VTV_2_UTT/
+
+# Unity Editor software installation
+editor/
+
+# Large Datasets (>50MB) - Generated via generate_hanoi_station_raw.py
+hanoi_station_raw.csv
+
+# Large WebGL Build artifacts (1.6GB binary - deployed on live hosting)
+Build_Web/
+
+# Large 3D Models & Unity packages (>50MB, exceeds GitHub limits)
+*.glb
+*.unitypackage
+
+# Unity specific ignores (exclude heavy build cache)
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+**/Library/
+**/Temp/
+**/Logs/
+**/UserSettings/
+**/obj/
+
+/[Aa]ssets/[Ss]treamingAssets/aa.meta
+/[Aa]ssets/[Ss]treamingAssets/aa/*
+.vs/
+.gradle/
+ExportedObj/
+.consulo/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# OS & Editor generated files
+.DS_Store
+Thumbs.db
+.vscode/
+downloads/
+scratch/
+~$*.docx
