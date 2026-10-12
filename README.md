@@ -1,4 +1,4 @@
-# 🚅 Hanoi High-Speed Railway Station — 3D Digital Twin & AI Energy Optimization
+# Hanoi High-Speed Railway Station — 3D Digital Twin & AI Energy Optimization
 
 [![Live Production](https://img.shields.io/badge/Production-Live%20Demo-success?style=for-the-badge&logo=cloudflare)](https://gamification.ink)
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
@@ -8,13 +8,13 @@
 
 > **A real-time 4-tier Digital Twin ecosystem integrating AI-driven predictive control for HVAC, ventilation, and biological lighting at Hanoi High-Speed Railway Station.**
 
-🌐 **Live Demo:** [https://gamification.ink](https://gamification.ink)  
-📊 **Interactive Analytics Dashboard:** [https://gamification.ink/dashboard](https://gamification.ink/dashboard)  
-📖 **Interactive Swagger Docs:** [https://gamification.ink/docs](https://gamification.ink/docs)
+**Live Demo:** [https://gamification.ink](https://gamification.ink)  
+**Interactive Analytics Dashboard:** [https://gamification.ink/dashboard](https://gamification.ink/dashboard)  
+**Interactive Swagger Docs:** [https://gamification.ink/docs](https://gamification.ink/docs)
 
 ---
 
-## 🏛️ System Architecture
+## System Architecture
 
 The system operates on an automated 4-tier loop:
 
@@ -41,7 +41,7 @@ The system operates on an automated 4-tier loop:
 
 ---
 
-## ⚡ Key Highlights & Benchmark Results
+## Key Highlights & Benchmark Results
 
 - **20% – 30% Cumulative Energy Savings**: Dynamically throttles HVAC power based on outdoor weather and real-time passenger loads compared to the static 85% full-load benchmark.
 - **2,000,000 Time-Series Records Engineered**: Synthetic dataset based on realistic Hanoi seasonal climate conditions.
@@ -50,7 +50,7 @@ The system operates on an automated 4-tier loop:
 
 ---
 
-## 🚀 Quick Start (Docker Compose)
+## Quick Start (Docker Compose)
 
 ### Prerequisites
 - Docker & Docker Compose
@@ -69,7 +69,7 @@ The stack starts 4 services:
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Backend / Inference:** Python 3.10, FastAPI, Uvicorn, Pydantic
 - **Machine Learning:** LightGBM, scikit-learn, StandardScaler, NumPy, Pandas
@@ -80,7 +80,7 @@ The stack starts 4 services:
 
 ---
 
-## 👤 Author
+## Author
 
 - **Do Thanh Hai** - *Lead Architect & AI Systems Engineer*
 - **Institution:** University of Transport Technology (UTT)
