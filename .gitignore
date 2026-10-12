@@ -24,6 +24,21 @@ Build_Web/
 *.glb
 *.unitypackage
 
+# Documentation / Reports / Personal files (Keep local, exclude from repo)
+*.docx
+*.pdf
+*.tex
+*.html
+!templates/*.html
+create_report_docx.py
+create_danh_muc.py
+create_deployment_guide.py
+CV_STRUCTURE_GUIDE.md
+logo_b64.txt
+backup_v1.md
+project_audit_report.md
+stress_test_report.md
+
 # Unity specific ignores (exclude heavy build cache)
 [Ll]ibrary/
 [Tt]emp/
@@ -65,4 +80,4 @@ Thumbs.db
 .vscode/
 downloads/
 scratch/
-~$*.docx
+~$*
